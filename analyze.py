@@ -3,7 +3,7 @@ import os
 from os import path
 import soundfile as sf
 import pandas as pd
-import matplotlib
+import matplotlib.pyplot as plt
 
 # The values gathered in processing the data will come in this dictionary. Every comp has another dictionary as value.
 # This dictionary holds the different languages. Each language has as a value a list of durations for its audio files.
@@ -68,10 +68,10 @@ def analyze_all_and_components():
                 all_values.append(value)
                 component_values.append(value)
         print("Analyzing component: " + component)
-        analyze_values(component_values)
+        analyze_values(component_values, component)
 
     print("Analyzing the entire dataset")
-    analyze_values(all_values)
+    analyze_values(all_values, "All")
 
 
 def analyze_languages():
@@ -89,16 +89,32 @@ def analyze_languages():
                     flemish_values.append(value)
 
     print("Analyzing the Dutch audio files")
-    analyze_values(dutch_values)
+    analyze_values(dutch_values, "Dutch")
     print("Analyzing the Flemish audio files")
-    analyze_values(flemish_values)
+    analyze_values(flemish_values, "Flemish")
 
 
 # This procedure gets called with a list of values that it will analyze
-def analyze_values(values):
+def analyze_values(values, title):
     s = pd.Series(values)
 
-    print(s.describe())
+    # Plot and save a histogram, afterwards close it again so we can continue with other plots
+    s.hist()
+    plt.title("Hist " + title)
+    plt.savefig("Hist " + title)
+    plt.close()
+
+    # Plot and save a boxplot. We also close it just to be sure, in the future we might want to add more plots.
+    s.plot.box()
+    plt.title("Box " + title)
+    plt.savefig("Box " + title)
+    plt.close()
+
+    descriptionTitle = "Description " + title + ".csv"
+    description = s.describe()
+    print(description)
+    with open(descriptionTitle, 'w+') as f:
+        description.to_csv(f, sep=',', encoding="ascii")
 
 
 # This function takes care of one component of the data
