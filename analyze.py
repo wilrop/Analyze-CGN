@@ -47,8 +47,10 @@ def analyze_all_and_components():
             for value in lang:
                 all_values.append(value)
                 component_values.append(value)
+        print("Analyzing component: " + component)
         analyze_values(component_values)
 
+    print("Analyzing the entire dataset")
     analyze_values(all_values)
 
 
@@ -64,7 +66,9 @@ def analyze_languages():
                 else:
                     flemish_values.append(value)
 
+    print("Analyzing the Dutch audio files")
     analyze_values(dutch_values)
+    print("Analyzing the Flemish audio files")
     analyze_values(flemish_values)
 
 
