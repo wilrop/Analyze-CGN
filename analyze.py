@@ -3,6 +3,7 @@ import os
 from os import path
 import soundfile as sf
 import pandas as pd
+import matplotlib
 
 MAX_SECS = 10
 MIN_SECS = 3
@@ -10,7 +11,17 @@ VALUES = {"comp-a": {"nl": [], "vl": []},
           "comp-b": {"nl": [], "vl": []},
           "comp-c": {"nl": [], "vl": []},
           "comp-d": {"nl": [], "vl": []},
-          }
+          "comp-e": {"nl": [], "vl": []},
+          "comp-f": {"nl": [], "vl": []},
+          "comp-g": {"nl": [], "vl": []},
+          "comp-h": {"nl": [], "vl": []},
+          "comp-i": {"nl": [], "vl": []},
+          "comp-j": {"nl": [], "vl": []},
+          "comp-k": {"nl": [], "vl": []},
+          "comp-l": {"nl": [], "vl": []},
+          "comp-m": {"nl": [], "vl": []},
+          "comp-n": {"nl": [], "vl": []},
+          "comp-o": {"nl": [], "vl": []},}
 
 
 def analyze_data(target):
@@ -42,9 +53,11 @@ def analyze_data(target):
 def analyze_all_and_components():
     all_values = []
     for component in VALUES:
+        langs = VALUES[component]
         component_values = []
-        for lang in component:
-            for value in lang:
+        for lang in langs:
+            values = langs[lang]
+            for value in values:
                 all_values.append(value)
                 component_values.append(value)
         print("Analyzing component: " + component)
@@ -59,8 +72,10 @@ def analyze_languages():
     flemish_values = []
 
     for component in VALUES:
-        for lang in component:
-            for value in lang:
+        langs = VALUES[component]
+        for lang in langs:
+            values = langs[lang]
+            for value in values:
                 if lang == "nl":
                     dutch_values.append(value)
                 else:
@@ -73,10 +88,9 @@ def analyze_languages():
 
 
 def analyze_values(values):
-    df = pd.DataFrame(values)
+    s = pd.Series(values)
 
-    df.describe()
-    df.boxplot()
+    print(s.describe())
 
 
 # This function takes care of one component of the data
@@ -104,10 +118,7 @@ def get_values_for_language(audio_path):
         sample_rate = speech.samplerate
         seconds = samples/sample_rate
 
-        if seconds > MAX_SECS or seconds < MIN_SECS:
-            pass
-        else:
-            values.append(seconds)
+        values.append(seconds)
 
     return values
 
