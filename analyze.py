@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 # The values gathered in processing the data will come in this dictionary. Every comp has another dictionary as value.
 # This dictionary holds the different languages. Each language has as a value a list of durations for its audio files.
+DIRECTORY = "Results"
 VALUES = {"comp-a": {"nl": [], "vl": []},
           "comp-b": {"nl": [], "vl": []},
           "comp-c": {"nl": [], "vl": []},
@@ -100,20 +101,25 @@ def analyze_values(values, title):
 
     # Plot and save a histogram, afterwards close it again so we can continue with other plots
     s.hist()
-    plt.title("Hist " + title)
-    plt.savefig("Hist " + title)
+    hist_title = "Hist " + title
+    hist_file = path.join(DIRECTORY, hist_title)
+    plt.title(hist_title)
+    plt.savefig(hist_file)
     plt.close()
 
     # Plot and save a boxplot. We also close it just to be sure, in the future we might want to add more plots.
     s.plot.box()
-    plt.title("Box " + title)
-    plt.savefig("Box " + title)
+    box_title = "Box " + title
+    box_file = path.join(DIRECTORY, box_title)
+    plt.title(box_title)
+    plt.savefig(box_file)
     plt.close()
 
-    descriptionTitle = "Description " + title + ".csv"
+    description_title = "Description " + title + ".csv"
+    description_file = path.join(DIRECTORY, description_title)
     description = s.describe()
     print(description)
-    with open(descriptionTitle, 'w+') as f:
+    with open(description_file, 'w+') as f:
         description.to_csv(f, sep=',', encoding="ascii")
 
 
