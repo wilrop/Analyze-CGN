@@ -5,8 +5,8 @@ import soundfile as sf
 import pandas as pd
 import matplotlib
 
-MAX_SECS = 10
-MIN_SECS = 3
+# The values gathered in processing the data will come in this dictionary. Every comp has another dictionary as value.
+# This dictionary holds the different languages. Each language has as a value a list of durations for its audio files.
 VALUES = {"comp-a": {"nl": [], "vl": []},
           "comp-b": {"nl": [], "vl": []},
           "comp-c": {"nl": [], "vl": []},
@@ -21,9 +21,10 @@ VALUES = {"comp-a": {"nl": [], "vl": []},
           "comp-l": {"nl": [], "vl": []},
           "comp-m": {"nl": [], "vl": []},
           "comp-n": {"nl": [], "vl": []},
-          "comp-o": {"nl": [], "vl": []},}
+          "comp-o": {"nl": [], "vl": []}}
 
 
+# The main procedure that gets called at the start of the program.
 def analyze_data(target):
     # Check to see if we get a correct path
     if not path.isdir(target):
@@ -46,17 +47,23 @@ def analyze_data(target):
             get_values_for_component(new_audio_path, x)
             print("---------------------------------------------------------")
 
+    # Analyze the entire dataset and every component
     analyze_all_and_components()
+    # Analyze the languages (Flemish and Dutch)
     analyze_languages()
 
 
+# This procedure will provide an analysis of each component and an overal analysis of the entire dataset.
 def analyze_all_and_components():
     all_values = []
+    # Loop over all components.
     for component in VALUES:
         langs = VALUES[component]
         component_values = []
+        # Loop over the languages.
         for lang in langs:
             values = langs[lang]
+            # Loop over all the values
             for value in values:
                 all_values.append(value)
                 component_values.append(value)
@@ -87,6 +94,7 @@ def analyze_languages():
     analyze_values(flemish_values)
 
 
+# This procedure gets called with a list of values that it will analyze
 def analyze_values(values):
     s = pd.Series(values)
 
@@ -103,7 +111,7 @@ def get_values_for_component(audio_path, comp):
         VALUES[comp][x] = values
 
 
-# This function processes one language each time it gets called
+# This function processes one language of a component each time it gets called
 def get_values_for_language(audio_path):
     files = os.listdir(audio_path)
     values = []
@@ -123,6 +131,7 @@ def get_values_for_language(audio_path):
     return values
 
 
+# This gets called when the python file is executed
 if __name__ == "__main__":
     print("Starting the analysis of the data")
 
