@@ -10,6 +10,6 @@ Its role has been filed by the other files in this project. This script however 
 This script will go over the entire corpus, collecting for every audio file the component it came from, its language and the length of this file.
 Finally, it will write this data to a new file. Its role is purely in collecting all of the data so that can later be used for actual analysis.
 
-## Python notebooks Complete.ipynb and Split.ipynb
-These interactive python notebooks fulfill the second part of analyze.py, namely that they generate descriptions and histograms for portions of the data. As the names might show, the complete notebook operates on the complete dataset and the split notebook on the dataset after splitting. There is no actual necessity to have two separate notebooks for these, but it adds ease of use.
+## Python notebooks: analyze_complete_CGN.ipynb and analyze_split_CGN.ipynb
+These interactive python notebooks fulfill the second part of analyze.py, namely that they generate descriptions and histograms for portions of the data. As the names might show, the first notebook operates on the complete dataset and the second notebook on the dataset after splitting. There is no actual necessity to have two separate notebooks for these, but it adds ease of use.
 
