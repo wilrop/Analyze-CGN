@@ -47,7 +47,6 @@ def count_hours():
 # This gets called when the python file is executed
 if __name__ == "__main__":
     print("Starting the analysis of the data")
-g
     count_hours()
 
     print("Completed successfully")
