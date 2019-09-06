@@ -39,9 +39,7 @@ def count_hours():
             audio_file = AudioSegment.from_file(path)
             duration = audio_file.duration_seconds
             FILENAMES[file] = FILENAMES[file] + duration
-
-    for file in FILENAMES:
-        print(file + ": " + str(FILENAMES[file] / 3600))
+        print(file + ": " + str(FILENAMES[file]/3600))
 
 
 # This gets called when the python file is executed
