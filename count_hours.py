@@ -30,6 +30,7 @@ FILENAMES = {"dutch_train_data_small.csv": 0,
              "test_data_small_non_overlapping.csv": 0,
              }
 
+
 def count_hours():
     for file in FILENAMES:
         df = pd.read_csv(file)
@@ -39,13 +40,14 @@ def count_hours():
             duration = audio_file.duration_seconds
             FILENAMES[file] = FILENAMES[file] + duration
 
-    print(FILENAMES)
+    for file in FILENAMES:
+        print(file + ": " + str(FILENAMES[file] / 3600))
 
 
 # This gets called when the python file is executed
 if __name__ == "__main__":
     print("Starting the analysis of the data")
-
+g
     count_hours()
 
     print("Completed successfully")
