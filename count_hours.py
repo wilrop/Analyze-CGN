@@ -38,8 +38,10 @@ def count_hours():
             path = row["wav_filename"]
             audio_file = AudioSegment.from_file(path)
             duration = audio_file.duration_seconds
-            FILENAMES[file] = FILENAMES[file] + duration
-        print(file + ": " + str(FILENAMES[file]/3600))
+            FILENAMES[file] = FILENAMES[file] + duratione
+
+    new_df = pd.DataFrame.from_dict(FILENAMES)
+    new_df.to_csv("hours.csv")
 
 
 # This gets called when the python file is executed
